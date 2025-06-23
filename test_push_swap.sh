@@ -126,12 +126,23 @@ test_error_case() {
     # Remove trailing whitespace and newlines for comparison
     clean_output=$(echo "$output" | tr -d '\n\r' | sed 's/[[:space:]]*$//')
 
-    # Check if error is properly handled (exactly "Error" or exit code != 0)
-    if [ "$clean_output" = "Error" ] || [ $exit_code -ne 0 ]; then
-        print_result "$test_name" "error" "error"
+    # Special case for "No arguments" - should have no output
+    if [ "$test_name" = "No arguments" ]; then
+        if [ -z "$clean_output" ] && [ $exit_code -eq 0 ]; then
+            print_result "$test_name" "no output" "no output"
+        else
+            print_result "$test_name" "no output" "unexpected output/error"
+            echo -e "  Output was: '$output'"
+            echo -e "  Exit code was: $exit_code"
+        fi
     else
-        print_result "$test_name" "error" "no error"
-        echo -e "  Output was: '$output'"
+        # Check if error is properly handled (exactly "Error" or exit code != 0)
+        if [ "$clean_output" = "Error" ] || [ $exit_code -ne 0 ]; then
+            print_result "$test_name" "error" "error"
+        else
+            print_result "$test_name" "error" "no error"
+            echo -e "  Output was: '$output'"
+        fi
     fi
 
     # Check for memory leaks even in error cases
