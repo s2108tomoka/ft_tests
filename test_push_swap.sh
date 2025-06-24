@@ -41,6 +41,22 @@ check_memory_leaks() {
     fi
 }
 
+check_sorted(){
+    local test_name="$1"
+    shift
+    local args="$@"
+
+    # Run with valgrind and capture output
+    checker_output=$(../push_swap $args | ../checker $args)
+
+    echo "$checker_output"
+    if [ "$checker_output" = "OK" ]; then
+        echo -e  "${GREEN}  [SORTED]${NC} sorted"
+    else
+        echo -e "${RED}  [NOT SORTED]${NC} not sorted"
+    fi
+}
+
 # Function to print test results
 print_result() {
     local test_name="$1"
@@ -120,6 +136,7 @@ test_unsorted_input() {
 
     # Check for memory leaks
     check_memory_leaks "$test_name" $args
+    check_sorted "$test_name" $args
     echo
 }
 
@@ -219,7 +236,7 @@ if ! command -v valgrind &> /dev/null; then
     exit 1
 fi
 
-# Test cases for already sorted inputs (should output nothing)
+Test cases for already sorted inputs (should output nothing)
 echo -e "${YELLOW}=== Testing Already Sorted Inputs ===${NC}"
 test_sorted_input "Single number" "1"
 test_sorted_input "Two sorted numbers" "1 2"
