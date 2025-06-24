@@ -231,7 +231,8 @@ echo
 # Test cases for error conditions
 echo -e "${YELLOW}=== Testing Error Cases ===${NC}"
 test_error_case "No arguments"
-test_error_case "A empty argument" ""
+test_error_case "A empty argument" '""'
+test_error_case "A space argument" '" "'
 test_error_case "Duplicate numbers" "1 2 2 3"
 test_error_case "Invalid number" "1 abc 3"
 test_error_case "Number too large" "1 2147483648"
