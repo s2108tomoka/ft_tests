@@ -58,6 +58,18 @@ print_result() {
         echo -e "  Actual: $actual"
     fi
 }
+print_succes() {
+    local test_name="$1"
+    local expected="$2"
+    local actual="$3"
+
+    TOTAL_TESTS=$((TOTAL_TESTS + 1))
+
+    echo -e "${GREEN}[PASS]${NC} $test_name"
+    PASSED_TESTS=$((PASSED_TESTS + 1))
+    echo -e "  Expected: $expected"
+    echo -e "  Actual: $actual"
+}
 
 # Function to test push_swap and check if output is empty
 test_sorted_input() {
@@ -152,7 +164,7 @@ test_error_case() {
 
 test_command_count() {
     local test_name="$1"
-    local max_commands="$2"
+    local max_commands=$2
     shift 2
     local args="$@"
 
@@ -175,7 +187,7 @@ test_command_count() {
         fi
 
         if [ $command_count -le $max_commands ]; then
-            print_result "$test_name" "≤$max_commands commands" "$command_count commands"
+            print_succes "$test_name" "≤$max_commands commands" "$command_count commands"
         else
             print_result "$test_name" "≤$max_commands commands" "$command_count commands (TOO MANY)"
             echo -e "  Commands were:"
