@@ -222,6 +222,7 @@ test_command_count() {
 
     # Check for memory leaks
     check_memory_leaks "$test_name" $args
+    check_sorted "$test_name" $args
     echo
 }
 
