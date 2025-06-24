@@ -12,6 +12,8 @@ TOTAL_TESTS=0
 PASSED_TESTS=0
 LEAK_TESTS=0
 LEAK_PASSED=0
+SORT_TESTS=0
+SORT_PASSED=0
 
 # Valgrind options (removed --error-exitcode since we want to check output content)
 VALGRIND_OPTS="--leak-check=full --show-leak-kinds=all --track-origins=yes -q"
@@ -46,12 +48,14 @@ check_sorted(){
     shift
     local args="$@"
 
+    SORT_TESTS=$((SORT_TESTS + 1))
     # Run with valgrind and capture output
     checker_output=$(../push_swap $args | ../checker $args)
 
     echo "$checker_output"
     if [ "$checker_output" = "OK" ]; then
         echo -e  "${GREEN}  [SORTED]${NC} sorted"
+        SORT_PASSED=$((SORT_PASSED + 1))
     else
         echo -e "${RED}  [NOT SORTED]${NC} not sorted"
     fi
@@ -74,6 +78,7 @@ print_result() {
         echo -e "  Actual: $actual"
     fi
 }
+
 print_succes() {
     local test_name="$1"
     local expected="$2"
@@ -288,7 +293,7 @@ test_command_count "5 numbers (random case 1)" 12 "3 5 1 4 2"
 test_command_count "5 numbers (random case 2)" 12 "4 1 5 2 3"
 test_command_count "5 numbers (random case 3)" 12 "2 5 3 1 4"
 
-if [ $PASSED_TESTS -eq $TOTAL_TESTS ] && [ $LEAK_PASSED -eq $LEAK_TESTS ]; then
+if [ $PASSED_TESTS -eq $TOTAL_TESTS ] && [ $LEAK_PASSED -eq $LEAK_TESTS ] && [ $SORT_PASSED -eq $SORT_TESTS ]; then
     echo
     echo -e "${GREEN}🎉 All tests passed and no memory leaks detected!${NC}"
     exit 0
@@ -299,6 +304,9 @@ else
     fi
     if [ $LEAK_PASSED -ne $LEAK_TESTS ]; then
         echo -e "${RED}💧 Memory leaks detected in some tests.${NC}"
+    fi
+    if [ $SORT_PASSED -ne $SORT_TESTS ]; then
+        echo -e "${RED}❓ not sorted in some tests.${NC}"
     fi
     exit 1
 fi
