@@ -236,7 +236,7 @@ if ! command -v valgrind &> /dev/null; then
     exit 1
 fi
 
-Test cases for already sorted inputs (should output nothing)
+# Test cases for already sorted inputs (should output nothing)
 echo -e "${YELLOW}=== Testing Already Sorted Inputs ===${NC}"
 test_sorted_input "Single number" "1"
 test_sorted_input "Two sorted numbers" "1 2"
