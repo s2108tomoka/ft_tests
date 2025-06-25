@@ -6,6 +6,7 @@ TEST_FILES=(
     "no_collection.ber"
     "no_exit.ber"
     "no_square.ber"
+    "empty.ber"
     "no_ber"
     "add_error_char.ber"
     "add_exit.ber"
