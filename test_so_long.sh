@@ -15,16 +15,15 @@ TEST_FILES=(
     "cannot_clear.ber"
     "cannot_clear2.ber"
     "no_sach_file.ber"
+    "no_middleline.ber"
+    "no_oneline.ber"
 )
 
-# プログラム名（環境に応じて変更してください）
 NAME="so_long"
 
-# Valgrindフラグ
 LEAK_FLAG="valgrind --leak-check=full --show-leak-kinds=all"
 LEAK_FLAG_Q="valgrind --leak-check=full --show-leak-kinds=all -q"
 
-# 関数定義
 run_tests() {
     echo "== Running map tests =="
 
@@ -43,7 +42,6 @@ run_leak_tests() {
     done
 }
 
-# 引数によって処理を分岐
 case "${1:-test}" in
     "test")
         run_tests
