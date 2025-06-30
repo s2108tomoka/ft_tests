@@ -52,7 +52,6 @@ check_sorted(){
     # Run with valgrind and capture output
     checker_output=$(../push_swap $args | ../checker $args)
 
-    echo "$checker_output"
     if [ "$checker_output" = "OK" ]; then
         echo -e  "${GREEN}  [SORTED]${NC} sorted"
         SORT_PASSED=$((SORT_PASSED + 1))
