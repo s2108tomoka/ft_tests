@@ -112,6 +112,7 @@ test_sorted_input() {
 
     # Check for memory leaks
     check_memory_leaks "$test_name" $args
+    check_sorted "$test_name" $args
     echo
 }
 
@@ -270,6 +271,7 @@ test_error_case "A space argument" '" "'
 test_error_case "Duplicate numbers" "1 2 2 3"
 test_error_case "Invalid number" "1 abc 3"
 test_error_case "Number too large" "1 2147483648"
+test_error_case "Number too too large" "18446744073709551616 1 2 3"
 test_error_case "Number too small" "-2147483649"
 test_error_case "Empty argument" "1 '' 3"
 
