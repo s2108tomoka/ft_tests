@@ -1,0 +1,20 @@
+cat | ls
+// cat < Makefile
+export TEST = "a=b=c=d"
+echo $ ?
+    echo $'42$'
+echo  "cat | ls | cat"
+echo -nnnnn Hello
+echo -n -nnn Hello
+echo -n -nhello
+echo - -n hello -n
+echo "$PATH"
+echo '$PATH'
+echo "'$PATH'"
+echo '"$PATH"'
+echo '"$PATH'
+echo "$USER:a"
+echo "$USER-a"
+echo "$USERa"
+echo"$USER"-a
+echo'$USER'-a
