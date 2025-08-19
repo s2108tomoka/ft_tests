@@ -1,0 +1,57 @@
+# Basic echo tests
+ls
+cat Makefile
+echo "Hello World"
+echo Hello World
+echo -n "No newline"
+
+# Environment variable tests
+export TEST_VAR=hello && echo $TEST_VAR
+export TEST_VAR=hello; echo $TEST_VAR
+TEST_VAR=temporary echo $TEST_VAR
+
+# Multiple commands
+export test=test && echo $test
+export A=1 && export B=2 && echo $A$B
+
+# Pipe tests
+echo "hello" | cat
+echo "line1\nline2" | wc -l
+ls /nonexistent | cat
+
+# Redirection tests
+echo "test" > /tmp/test_output && cat /tmp/test_output
+echo "error" >&2
+
+# Exit status tests
+true
+false
+ls /nonexistent
+
+# Built-in commands
+pwd
+cd /tmp && pwd
+cd /nonexistent
+
+# Complex variable expansion
+export NAME=world && echo "Hello $NAME!"
+export A=B && export B=C && echo $A$B
+
+# Quotes handling
+echo 'single quotes $HOME'
+echo "double quotes $HOME"
+echo "mixed 'quotes' test"
+
+# Command substitution (if supported)
+echo $(echo "nested")
+echo `echo "backticks"`
+
+# Error cases
+nonexistent_command
+echo $UNDEFINED_VAR
+cat /nonexistent/file
+
+# Special characters
+echo "test with spaces"
+echo 'test with $pecial chars'
+echo "test\nwith\nescapes"
